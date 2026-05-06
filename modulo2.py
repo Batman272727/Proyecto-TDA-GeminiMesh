@@ -19,7 +19,6 @@ class ColaMensajes:
         """Inserta un mensaje y maneja el desbordamiento."""
         if self.tamano_actual >= self.limite:
             self.desencolar()
-        # Puede venir como dict o str
         if isinstance(datos_mensaje, dict):
             contenido = datos_mensaje.get('contenido')
             rol = datos_mensaje.get('rol', 'user')
@@ -35,7 +34,8 @@ class ColaMensajes:
         self.tamano_actual += 1
 
     def desencolar(self):
-        if not self.frente: return None
+        if not self.frente:
+            return None
         temp = self.frente
         self.frente = self.frente.siguiente
         if not self.frente:
@@ -44,7 +44,6 @@ class ColaMensajes:
         return temp
 
     def obtener_como_lista(self):
-        """Exporta como lista de diccionarios."""
         lista = []
         actual = self.frente
         while actual:
