@@ -23,7 +23,6 @@ class GestorConfiguracion:
         self.cola = None
 
     def crear_perfil(self, id_unico, nombre, modelo, api_key, instruction, log):
-        """Crea e inserta un nuevo bot al final de la lista."""
         if self.consultar_perfil(id_unico):
             log.registrar("E103", f"ID '{id_unico}' ya existe.")
             print(f"Error: El ID '{id_unico}' ya existe.")
@@ -38,7 +37,6 @@ class GestorConfiguracion:
         print(f"Bot '{nombre}' registrado correctamente.")
 
     def listar_perfiles(self):
-        """Imprime todos los bots registrados."""
         actual = self.cabeza
         print("\n--- LISTADO DE PERFILES GEMINI MESH ---")
         if not actual:
@@ -49,7 +47,6 @@ class GestorConfiguracion:
             actual = actual.siguiente
 
     def consultar_perfil(self, id_buscado):
-        """Devuelve el perfil/bot buscado por ID."""
         actual = self.cabeza
         while actual:
             if actual.id_unico == id_buscado:
@@ -58,10 +55,8 @@ class GestorConfiguracion:
         return None
 
     def modificar_perfil(self, id_buscado, nuevo_nombre=None, nueva_instruccion=None, nuevo_modelo=None, log=None):
-        """Actualiza campos de un perfil y guarda el estado anterior en la pila."""
         bot = self.consultar_perfil(id_buscado)
         if bot:
-            # Antes de modificar, apila el estado actual
             bot.pila_estados.apilar(bot.system_instruction, bot.modelo)
             if nuevo_nombre: bot.nombre_bot = nuevo_nombre
             if nueva_instruccion: bot.system_instruction = nueva_instruccion
@@ -73,7 +68,6 @@ class GestorConfiguracion:
             print(f"Error: No se encontró el bot con ID '{id_buscado}'.")
 
     def eliminar_perfil(self, id_buscado, log):
-        """Elimina un bot por ID."""
         bot = self.consultar_perfil(id_buscado)
         if not bot:
             log.registrar("E101", f"ID '{id_buscado}' no encontrado para eliminar.")
