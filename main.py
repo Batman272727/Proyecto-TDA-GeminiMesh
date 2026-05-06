@@ -1,6 +1,8 @@
 from modulo1 import GestorConfiguracion
 from modulo4 import GestorArchivos
 from modulo5 import LogErrores
+from gemini_api import chat_with_gemini
+
 
 def menu_principal():
     print("""
